@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Header from './Header';
 
 const CalculatorWrapper = styled.div`
   position: absolute;
@@ -10,19 +11,27 @@ const CalculatorWrapper = styled.div`
   width: 30%;
   height: 70vh;
   border: 1px solid white;
-  @media (max-width: 425px) {
-    width: 80%;
-  }
-  @media (max-width: 768px) {
-    width: 60%;
+  color: ${(props) => props.theme.purple.color};
+  @media (max-width: 1250px) {
+    width: 45%;
   }
   @media (max-width: 999px) {
-    width: 50%;
+    width: 65%;
+  }
+  @media (max-width: 825px) {
+    width: 70%;
+  }
+  @media (max-width: 425px) {
+    width: 90%;
   }
 `;
 
 const Calculator = () => {
-  return <CalculatorWrapper>Calc</CalculatorWrapper>;
+  return (
+    <CalculatorWrapper>
+      <Header />
+    </CalculatorWrapper>
+  );
 };
 
 export default Calculator;

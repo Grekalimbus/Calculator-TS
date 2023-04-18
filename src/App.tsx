@@ -6,7 +6,7 @@ const AppWrapper = styled.div`
   width: 100%;
   min-height: 100vh;
   padding: 5px;
-  background: black;
+  background: ${(props) => props.theme.purple.background};
   color: white;
 `;
 
