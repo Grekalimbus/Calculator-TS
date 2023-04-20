@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const ToggleWrapper = styled.div`
@@ -26,8 +26,8 @@ interface ToggleProps {
   offset: number;
 }
 
-const Toggletheme: FC<ToggleProps> = ({ offset }) => {
-  const [clicks, setClicks] = useState(0);
+const Toggletheme = () => {
+  const [clicks, setClicks] = useState<number>(0);
   const handleToggle = () => {
     setClicks(clicks + 1);
   };
@@ -35,7 +35,7 @@ const Toggletheme: FC<ToggleProps> = ({ offset }) => {
   return (
     <>
       <ToggleWrapper onClick={handleToggle}>
-        <ToggleItem offset={newOffset + offset} />
+        <ToggleItem offset={newOffset + 1} />
       </ToggleWrapper>
     </>
   );

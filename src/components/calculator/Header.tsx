@@ -4,17 +4,17 @@ import Toggletheme from './ToggleTheme';
 
 const HeaderWrapper = styled.div`
   display: flex;
+  margin-bottom: 2%;
   justify-content: space-between;
   align-items: end;
   height: 8vh;
-  border: 1px solid white;
 `;
 
 const Header = () => {
   return (
     <HeaderWrapper>
-      <h1>Calc</h1>      
-      <Toggletheme offset={1} />
+      <h1>Calc</h1>
+      <Toggletheme />
     </HeaderWrapper>
   );
 };

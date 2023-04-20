@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import CalculatorField from './CalculatorField';
 import Header from './Header';
 
 const CalculatorWrapper = styled.div`
@@ -27,9 +28,14 @@ const CalculatorWrapper = styled.div`
 `;
 
 const Calculator = () => {
+  const [inputValue, setInputValue] = useState<string>('');
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
   return (
     <CalculatorWrapper>
       <Header />
+      <CalculatorField value={inputValue} handleInputChange={handleInputChange} />
     </CalculatorWrapper>
   );
 };
