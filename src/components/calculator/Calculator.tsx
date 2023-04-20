@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import CalculatorButton from './CalculatorButton';
 import CalculatorField from './CalculatorField';
 import Header from './Header';
 
@@ -36,6 +37,7 @@ const Calculator = () => {
     <CalculatorWrapper>
       <Header />
       <CalculatorField value={inputValue} handleInputChange={handleInputChange} />
+      <CalculatorButton value={'0'} />
     </CalculatorWrapper>
   );
 };
