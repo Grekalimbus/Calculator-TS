@@ -8,6 +8,7 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
   align-items: end;
   height: 8vh;
+  color: ${(props) => props.theme.color};
 `;
 
 const Header = () => {

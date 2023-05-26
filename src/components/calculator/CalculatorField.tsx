@@ -14,7 +14,7 @@ const StyledInput = styled.input`
   margin: 0;
   border-radius: 4px;
   display: block;
-  background: ${(props) => props.theme.purple.field};
+  background: ${(props) => props.theme.fieldDisplay};
 `;
 
 interface Props {

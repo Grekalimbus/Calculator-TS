@@ -3,21 +3,24 @@ import styled, { useTheme } from 'styled-components';
 
 const Button = styled.button`
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 20%;
+  height: 40px;
+  margin: 10px;
+  border-radius: 4px;
+  border-bottom: 3px solid ${(props) => props.theme.buttonNumber.border};
+  color: ${(props) => props.theme.buttonNumber.color};
 `;
 
 const CalculatorButton: FC<{ value: string }> = ({ value }) => {
   const theme = useTheme();
   const pickThemeColorButton = (value: string) => {
     if (['DEL', '=', 'RESET'].includes(value)) {
-      return theme.purple.buttonSide.main;
+      return theme.buttonSide.background;
     }
-    return theme.purple.buttonNumber.main;
+    return theme.buttonNumber.background;
   };
-  console.log(theme.purple);
 
-  return <Button style={{ background: `${pickThemeColorButton(value)}` }}>000</Button>;
+  return <Button style={{ background: `${pickThemeColorButton(value)}` }}>{value}</Button>;
 };
 
 export default CalculatorButton;

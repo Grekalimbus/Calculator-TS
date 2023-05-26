@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useAppDispatch, useAppSelector } from '../../hook';
+import { changeTheme } from '../../store/themeSlice';
 
 const ToggleWrapper = styled.div`
-  background: ${(props) => props.theme.purple.field};
+  background: ${(props) => props.theme.fieldDisplay};
   width: 20%;
   height: 3vh;
   margin: 3px;
@@ -13,7 +15,7 @@ const ToggleWrapper = styled.div`
 `;
 
 const ToggleItem = styled.div<ToggleProps>`
-  background: ${(props) => props.theme.purple.buttonTheme};
+  background: ${(props) => props.theme.buttonTheme};
   width: 31.5%;
   height: 70%;
   margin: 5px;
@@ -27,14 +29,17 @@ interface ToggleProps {
 }
 
 const Toggletheme = () => {
+  const dispatch = useAppDispatch();
   const [clicks, setClicks] = useState<number>(0);
+
   const handleToggle = () => {
     setClicks(clicks + 1);
   };
+
   const newOffset = (clicks % 3) * 90;
   return (
     <>
-      <ToggleWrapper onClick={handleToggle}>
+      <ToggleWrapper onClick={() => [dispatch(changeTheme('')), handleToggle()]}>
         <ToggleItem offset={newOffset + 1} />
       </ToggleWrapper>
     </>
