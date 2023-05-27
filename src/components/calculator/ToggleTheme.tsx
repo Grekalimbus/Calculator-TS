@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useAppDispatch, useAppSelector } from '../../hook';
+import { useAppDispatch } from '../../hook';
 import { changeTheme } from '../../store/themeSlice';
 
 const ToggleWrapper = styled.div`
   background: ${(props) => props.theme.fieldDisplay};
-  width: 20%;
+  width: 40%;
   height: 3vh;
   margin: 3px;
+  padding: 1px;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -16,9 +17,8 @@ const ToggleWrapper = styled.div`
 
 const ToggleItem = styled.div<ToggleProps>`
   background: ${(props) => props.theme.buttonTheme};
-  width: 31.5%;
+  width: 30%;
   height: 70%;
-  margin: 5px;
   border-radius: 5px;
   transition: transform 0.2s ease-in-out;
   transform: translateX(${(props) => props.offset}%);
@@ -30,13 +30,14 @@ interface ToggleProps {
 
 const Toggletheme = () => {
   const dispatch = useAppDispatch();
-  const [clicks, setClicks] = useState<number>(0);
+  const clicks = Number(localStorage.getItem('toggleItem'));
 
   const handleToggle = () => {
-    setClicks(clicks + 1);
+    const incrementClick = clicks + 1;
+    localStorage.setItem('toggleItem', String(incrementClick));
   };
 
-  const newOffset = (clicks % 3) * 90;
+  const newOffset = (clicks % 3) * 110;
   return (
     <>
       <ToggleWrapper onClick={() => [dispatch(changeTheme('')), handleToggle()]}>

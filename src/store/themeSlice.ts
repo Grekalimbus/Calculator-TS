@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 
-type Theme = {
+export type Theme = {
     id:string
     background: string,
     fieldDisplay: string,
@@ -56,7 +56,7 @@ const initialState:ThemeSTate = {
 }
  
 const themeFromLS = localStorage.getItem('theme')
-const parseThemeFromLS = themeFromLS? {list: JSON.parse(themeFromLS)}: initialState
+const parseThemeFromLS = themeFromLS?  JSON.parse(themeFromLS): initialState
 
 const themeSlice = createSlice({
     name: 'theme',
@@ -87,7 +87,10 @@ const themeSlice = createSlice({
                 },
                 buttonTheme: '#9D4608',
               }          
-            localStorage.setItem('theme', JSON.stringify(themeObject))            
+            localStorage.setItem('theme', JSON.stringify({
+              ...state,
+              list: themeObject,
+            }))            
             return {
               ...state,
               list: themeObject,
@@ -118,7 +121,10 @@ const themeSlice = createSlice({
                 },
                 buttonTheme: '#f96c5b',
               }          
-            localStorage.setItem('theme', JSON.stringify(themeObject))            
+            localStorage.setItem('theme', JSON.stringify({
+              ...state,
+              list: themeObject,
+            }))            
             return {
               ...state,
               list: themeObject,
@@ -149,7 +155,10 @@ const themeSlice = createSlice({
               },
               buttonTheme: '#01AF90',
               }          
-            localStorage.setItem('theme', JSON.stringify(themeObject))            
+              localStorage.setItem('theme', JSON.stringify({
+                ...state,
+                list: themeObject,
+              }))     
             return {
               ...state,
               list: themeObject,

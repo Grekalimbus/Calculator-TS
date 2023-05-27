@@ -11,15 +11,17 @@ const CalculatorWrapper = styled.div`
   transform: translate(-50%, -50%);
   margin: auto;
   width: 30%;
-  border: 1px solid white;
   color: ${(props) => props.theme.color};
   @media (max-width: 1250px) {
-    width: 45%;
+    width: 40%;
   }
   @media (max-width: 999px) {
-    width: 65%;
+    width: 45%;
   }
   @media (max-width: 825px) {
+    width: 55%;
+  }
+  @media (max-width: 545px) {
     width: 70%;
   }
   @media (max-width: 425px) {
@@ -34,14 +36,17 @@ const WrapperButtons = styled.div`
   align-items: center;
   width: 100%;
   margin-top: 15px;
-  padding: 15px;
+  padding: 10px 30px 10px 30px;
+  border-radius: 5px;
   background: ${(props) => props.theme.backgroundUnderButtons};
-  border: 1px solid white;
+  @media (max-width: 825px) {
+    padding: 10px;
+  }
 `;
 
 const LineButtons = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
 `;
@@ -53,6 +58,7 @@ const Calculator = () => {
     ['4', '5', '6', '+'],
     ['1', '2', '3', '-'],
     ['.', '0', '/', 'x'],
+    ['RESET', '='],
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

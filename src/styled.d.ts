@@ -20,6 +20,7 @@ declare module "styled-components" {
     buttonResult: {
       background: string,
       border: string,
+      color:string
     },
     buttonTheme: string,
     }   

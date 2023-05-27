@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { useAppSelector } from './hook';
+import { Theme } from './store/themeSlice';
 
 const Global = createGlobalStyle` 
 *{
@@ -34,39 +35,48 @@ const Global = createGlobalStyle`
 const Root = () => {
   const themes = useAppSelector((state) => state.theme.list);
   const themeFromLS = localStorage.getItem('theme');
+  const toggleItem = localStorage.getItem('toggleItem');
+  const parseThemeFromLS: Theme | null = themeFromLS ? JSON.parse(themeFromLS) : null;
 
-  if (!themeFromLS || themeFromLS?.length) {
-    const themeObject = {
-      id: '1',
-      background: '#17062A',
-      fieldDisplay: '#1E0836',
-      backgroundUnderButtons: '#1E0836',
-      color: '#FBE23E',
-      buttonNumber: {
-        background: '#331B4D',
-        border: '#9409B7',
+  useEffect(() => {
+    if (!toggleItem) {
+      localStorage.setItem('toggleItem', '0');
+    }
+    if (!parseThemeFromLS) {
+      const themeObject = {
+        id: '1',
+        background: '#17062A',
+        fieldDisplay: '#1E0836',
+        backgroundUnderButtons: '#1E0836',
         color: '#FBE23E',
-      },
-      buttonSide: {
-        background: '#56077C',
-        border: '#9409B7',
-        color: 'white',
-      },
-      buttonResult: {
-        background: '#01AF90',
-        border: '#04DDB6',
-        color: 'white',
-      },
-      buttonTheme: '#01AF90',
-    };
-    localStorage.setItem('theme', JSON.stringify(themeObject));
-  }
+        buttonNumber: {
+          background: '#331B4D',
+          border: '#9409B7',
+          color: '#FBE23E',
+        },
+        buttonSide: {
+          background: '#56077C',
+          border: '#9409B7',
+          color: 'white',
+        },
+        buttonResult: {
+          background: '#01AF90',
+          border: '#04DDB6',
+          color: 'white',
+        },
+        buttonTheme: '#01AF90',
+      };
+      localStorage.setItem('theme', JSON.stringify({ list: themeObject }));
+    }
+  }, []);
 
   return (
-    <ThemeProvider theme={themes}>
-      <Global />
-      <App />
-    </ThemeProvider>
+    themes && (
+      <ThemeProvider theme={themes}>
+        <Global />
+        <App />
+      </ThemeProvider>
+    )
   );
 };
 
