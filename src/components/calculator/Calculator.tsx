@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Header from './Header';
 import CalculatorButton from './CalculatorButton';
 import CalculatorField from './CalculatorField';
-import Header from './Header';
+import utilsOperationForOperator from '../../utils/operationForOperator';
+import utilsDeleteValue from '../../utils/deleteValue';
+import utilsResultValue from '../../utils/resultValue';
+import utilsInputChangeForButton from '../../utils/InputChangeForButton';
+import utilsHandleInputChange from '../../utils/handleInputChange';
 
 const CalculatorWrapper = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  margin: auto;
   width: 30%;
+  margin: auto;
+  transform: translate(-50%, -50%);
   color: ${(props) => props.theme.color};
   @media (max-width: 1250px) {
     width: 40%;
@@ -52,7 +57,8 @@ const LineButtons = styled.div`
 `;
 
 const Calculator = () => {
-  const [inputValue, setInputValue] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>('0');
+  const [lastValue, setLastValue] = useState<string>('');
   const lineButtons = [
     ['7', '8', '9', 'DEL'],
     ['4', '5', '6', '+'],
@@ -62,17 +68,51 @@ const Calculator = () => {
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+    utilsHandleInputChange(e, setInputValue);
   };
+
+  const handleInputChangeForButton = (value: string) => {
+    utilsInputChangeForButton(inputValue, value, setInputValue);
+  };
+
+  const resultValue = () => {
+    utilsResultValue(inputValue, lastValue, setLastValue, setInputValue);
+  };
+
+  const resetValue = () => {
+    setInputValue('0');
+    setLastValue('');
+  };
+
+  const deleteValue = () => {
+    utilsDeleteValue(inputValue, setInputValue);
+  };
+
+  const operationForOperator = (value: string) => {
+    utilsOperationForOperator(value, lastValue, inputValue, setLastValue, setInputValue);
+  };
+
   return (
     <CalculatorWrapper>
       <Header />
-      <CalculatorField value={inputValue} handleInputChange={handleInputChange} />
+      <CalculatorField
+        value={inputValue}
+        handleInputChange={handleInputChange}
+        lastValue={lastValue}
+      />
       <WrapperButtons>
         {lineButtons.map((line, index) => (
           <LineButtons key={index}>
             {line.map((button) => (
-              <CalculatorButton key={button} value={button} />
+              <CalculatorButton
+                key={button}
+                value={button}
+                handleInputChangeForButton={handleInputChangeForButton}
+                resetValue={resetValue}
+                deleteValue={deleteValue}
+                operationForOperator={operationForOperator}
+                resultValue={resultValue}
+              />
             ))}
           </LineButtons>
         ))}

@@ -3,14 +3,30 @@ import styled, { useTheme } from 'styled-components';
 
 const Button = styled.button`
   display: block;
-  height: 40px;
+  height: 50px;
   margin: 10px;
   font-size: 18px;
   border-radius: 4px;
   color: ${(props) => props.theme.buttonNumber.color};
 `;
 
-const CalculatorButton: FC<{ value: string }> = ({ value }) => {
+interface Props {
+  handleInputChangeForButton: (value: string) => void;
+  resetValue: () => void;
+  deleteValue: () => void;
+  resultValue: () => void;
+  operationForOperator: (value: string) => void;
+  value: string;
+}
+
+const CalculatorButton: FC<Props> = ({
+  value,
+  handleInputChangeForButton,
+  resetValue,
+  deleteValue,
+  operationForOperator,
+  resultValue,
+}) => {
   const theme = useTheme();
   const pickThemeColorButton = (value: string) => {
     if (['DEL'].includes(value)) {
@@ -44,7 +60,40 @@ const CalculatorButton: FC<{ value: string }> = ({ value }) => {
     };
   };
 
-  return <Button style={pickThemeColorButton(value)}>{value}</Button>;
+  if (value === 'DEL') {
+    return (
+      <Button onClick={() => deleteValue()} style={pickThemeColorButton(value)}>
+        {value}
+      </Button>
+    );
+  }
+  if (value === 'RESET') {
+    return (
+      <Button onClick={() => resetValue()} style={pickThemeColorButton(value)}>
+        {value}
+      </Button>
+    );
+  }
+  if (value === '=') {
+    return (
+      <Button onClick={() => resultValue()} style={pickThemeColorButton(value)}>
+        {value}
+      </Button>
+    );
+  }
+  if (['+', '-', 'x', '/'].includes(value)) {
+    return (
+      <Button onClick={() => operationForOperator(value)} style={pickThemeColorButton(value)}>
+        {value}
+      </Button>
+    );
+  }
+
+  return (
+    <Button onClick={() => handleInputChangeForButton(value)} style={pickThemeColorButton(value)}>
+      {value}
+    </Button>
+  );
 };
 
 export default CalculatorButton;

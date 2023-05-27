@@ -4,10 +4,10 @@ import Toggletheme from './ToggleTheme';
 
 const HeaderWrapper = styled.div`
   display: flex;
-  margin-bottom: 2%;
   justify-content: space-between;
   align-items: end;
   height: 8vh;
+  margin-bottom: 2%;
   color: ${(props) => props.theme.color};
 `;
 

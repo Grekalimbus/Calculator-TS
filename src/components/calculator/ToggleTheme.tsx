@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../hook';
 import { changeTheme } from '../../store/themeSlice';
 
 const ToggleWrapper = styled.div`
-  background: ${(props) => props.theme.fieldDisplay};
-  width: 40%;
-  height: 3vh;
-  margin: 3px;
-  padding: 1px;
-  border-radius: 5px;
   display: flex;
   align-items: center;
+  width: 40%;
+  height: 3.5vh;
+  margin: 3px;
+  padding-left: 8px;
+  border-radius: 5px;
   cursor: pointer;
+  background: ${(props) => props.theme.fieldDisplay};
 `;
 
 const ToggleItem = styled.div<ToggleProps>`
-  background: ${(props) => props.theme.buttonTheme};
   width: 30%;
   height: 70%;
   border-radius: 5px;
   transition: transform 0.2s ease-in-out;
+  background: ${(props) => props.theme.buttonTheme};
   transform: translateX(${(props) => props.offset}%);
 `;
 
