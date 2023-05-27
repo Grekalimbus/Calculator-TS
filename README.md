@@ -16,15 +16,15 @@
 ### What is worth paying attention to
 ## [link on Component CalculatorButton.tsx](https://github.com/Grekalimbus/Calculator-TS/blob/main/src/components/calculator/CalculatorButton.tsx)
 
-### ENG
-There are many buttons, all of different sizes and all have different styles, but there is only one component for the buttons. Inside the component, the styles for the button are dynamically determined depending on its value
-For each button, depending on its value, the corresponding function for this value is transferred.
-I see a small minus in the fact that there are a lot of conditions with the return of a component, but on the other hand, in order to improve one thing, you need to sacrifice something else.
-
 ### RU
 Кнопок много, все разных размеров и у всех разные стили, но компонент для кнопок всего один. Внутри компонента динамически определяются стили для кнопки в зависимости от её значения
 Для каждой кнопки в зависимости от её значения передается соответствующая для этого значения функция.
 Небольшой минус вижу в том, что много условий с возвратом компонента, но с другой стороны, чтобы улучшить что-то одно, нужно жертвовать чем-то другим.
+
+### ENG
+There are many buttons, all of different sizes and all have different styles, but there is only one component for the buttons. Inside the component, the styles for the button are dynamically determined depending on its value
+For each button, depending on its value, the corresponding function for this value is transferred.
+I see a small minus in the fact that there are a lot of conditions with the return of a component, but on the other hand, in order to improve one thing, you need to sacrifice something else.
 
 ### Exemple component
 
@@ -242,10 +242,85 @@ const themeSlice = createSlice({
 Это самый главный компонент, который и является корнем всей логики этого приложения. Это приложение односраничное, поэтому здесь очень легко ориентироватся. Архитектура дефолтная. 
 
 ### Небольшое вступление 
-    Я начал разрабатывать это приложение, но сразу же появился более приоритетный проект, на который я потратил около месяца. После этого я продолжил разарабывать это приложение "Calculator". К этому моменту оно было готово меньше чем на 30%. Мне хватило одного дня, чтобы завершить это приложение до конца. 
-    Сейчас это приложение легко расширять. Например добавлять другие темы для пользователей. В директории приложения легко ориентироватся. Также хочу отметить, что приложение адаптивное под десктоп и мобил
+ Я начал разрабатывать это приложение, но сразу же появился более приоритетный проект, на который я потратил около месяца. После этого я продолжил разарабывать это приложение "Calculator". К этому моменту оно было готово меньше чем на 30%. Мне хватило одного дня, чтобы завершить это приложение до конца. 
+ Сейчас это приложение легко расширять. Например добавлять другие темы для пользователей. В директории приложения легко ориентироватся. Также хочу отметить, что приложение адаптивное под десктоп и мобил
 
 ## [Example Main component (Calculator.tsx)](https://github.com/Grekalimbus/Calculator-TS/blob/main/src/components/calculator/Calculator.tsx)
+
+```js
+const Calculator = () => {
+  const [inputValue, setInputValue] = useState<string>('0');
+  const [lastValue, setLastValue] = useState<string>('');
+  const lineButtons = [
+    ['7', '8', '9', 'DEL'],
+    ['4', '5', '6', '+'],
+    ['1', '2', '3', '-'],
+    ['.', '0', '/', 'x'],
+    ['RESET', '='],
+  ];
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    utilsHandleInputChange(e, setInputValue);
+  };
+
+  const handleInputChangeForButton = (value: string) => {
+    utilsInputChangeForButton(inputValue, value, setInputValue);
+  };
+
+  const resultValue = () => {
+    utilsResultValue(inputValue, lastValue, setLastValue, setInputValue);
+  };
+
+  const resetValue = () => {
+    setInputValue('0');
+    setLastValue('');
+  };
+
+  const deleteValue = () => {
+    utilsDeleteValue(inputValue, setInputValue);
+  };
+
+  const operationForOperator = (value: string) => {
+    utilsOperationForOperator(value, lastValue, inputValue, setLastValue, setInputValue);
+  };
+
+  return (
+    <CalculatorWrapper>
+      <Header />
+      <CalculatorField
+        value={inputValue}
+        handleInputChange={handleInputChange}
+        lastValue={lastValue}
+      />
+      <WrapperButtons>
+        {lineButtons.map((line, index) => (
+          <LineButtons key={index}>
+            {line.map((button) => (
+              <CalculatorButton
+                key={button}
+                value={button}
+                handleInputChangeForButton={handleInputChangeForButton}
+                resetValue={resetValue}
+                deleteValue={deleteValue}
+                operationForOperator={operationForOperator}
+                resultValue={resultValue}
+              />
+            ))}
+          </LineButtons>
+        ))}
+      </WrapperButtons>
+    </CalculatorWrapper>
+  );
+};
+
+export default Calculator;
+```
+
+# If you have any questions, you can write to me in telegram:
+    https://t.me/makakanos
+
+
+
 
 
 
