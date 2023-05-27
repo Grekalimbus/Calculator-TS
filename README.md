@@ -245,6 +245,12 @@ const themeSlice = createSlice({
  Я начал разрабатывать это приложение, но сразу же появился более приоритетный проект, на который я потратил около месяца. После этого я продолжил разарабывать это приложение "Calculator". К этому моменту оно было готово меньше чем на 30%. Мне хватило одного дня, чтобы завершить это приложение до конца. 
  Сейчас это приложение легко расширять. Например добавлять другие темы для пользователей. В директории приложения легко ориентироватся. Также хочу отметить, что приложение адаптивное под десктоп и мобил
 
+ # ENG
+ I also want to show an example of bulk components with large logic, where all the logic is succinctly distributed and isolated. At first glance, it may seem that the component is simple, but it is not quite so. This is the most important component, which is the root of all the logic of this application. This application is single-page, so it is very easy to navigate here. Default architecture.
+
+A small introduction
+I started developing this application, but immediately a higher priority project appeared, which I spent about a month on. After that, I continued to develop this "Calculator" application. At this point, it was less than 30% complete. It took me one day to complete this application to the end. Now this application is easy to expand. For example, add other themes for users. The application directory is easy to navigate. I also want to note that the application is adaptive for desktop and mobile
+
 ## [Example Main component (Calculator.tsx)](https://github.com/Grekalimbus/Calculator-TS/blob/main/src/components/calculator/Calculator.tsx)
 
 ```js
