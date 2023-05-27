@@ -1,46 +1,124 @@
-# Getting Started with Create React App
+# Introducing Calculator app with 3 different themes
+<br />
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Image1](https://i.postimg.cc/sxzYNHBC/image.png)
+![Image1](https://i.postimg.cc/fTw77Fnx/image.png)
+![Image1](https://i.postimg.cc/g27vW2wD/image.png)
+<br />
 
-## Available Scripts
+### Used tehnolohy
+    React
+    Redux
+    TypeScript
+    Styled-components
+<br />
 
-In the project directory, you can run:
+### What is worth paying attention to
+Component `CalculatorButton.tsx`
 
-### `npm start`
+### ENG
+There are many buttons, all of different sizes and all have different styles, but there is only one component for the buttons. Inside the component, the styles for the button are dynamically determined depending on its value
+For each button, depending on its value, the corresponding function for this value is transferred.
+I see a small minus in the fact that there are a lot of conditions with the return of a component, but on the other hand, in order to improve one thing, you need to sacrifice something else.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### RU
+Кнопок много, все разных размеров и у всех разные стили, но компонент для кнопок всего один. Внутри компонента динамически определяются стили для кнопки в зависимости от её значения
+Для каждой кнопки в зависимости от её значения передается соответствующая для этого значения функция.
+Небольшой минус вижу в том, что много условий с возвратом компонента, но с другой стороны, чтобы улучшить что-то одно, нужно жертвовать чем-то другим.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Exemple component
 
-### `npm test`
+```js
+interface Props {
+  handleInputChangeForButton: (value: string) => void;
+  resetValue: () => void;
+  deleteValue: () => void;
+  resultValue: () => void;
+  operationForOperator: (value: string) => void;
+  value: string;
+}
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+const CalculatorButton: FC<Props> = ({
+  value,
+  handleInputChangeForButton,
+  resetValue,
+  deleteValue,
+  operationForOperator,
+  resultValue,
+}) => {
+  const theme = useTheme();
+  const pickThemeColorButton = (value: string) => {
+    if (['DEL'].includes(value)) {
+      return {
+        background: theme.buttonSide.background,
+        borderBottom: `3px solid ${theme.buttonSide.border}`,
+        color: theme.buttonSide.color,
+        width: '20%',
+      };
+    }
+    if (['RESET'].includes(value)) {
+      return {
+        background: theme.buttonSide.background,
+        borderBottom: `3px solid ${theme.buttonSide.border}`,
+        color: theme.buttonSide.color,
+        width: '46%',
+      };
+    }
+    if (['='].includes(value)) {
+      return {
+        background: theme.buttonResult.background,
+        borderBottom: `3px solid ${theme.buttonResult.border}`,
+        color: theme.buttonResult.color,
+        width: '46%',
+      };
+    }
+    return {
+      background: theme.buttonNumber.background,
+      borderBottom: `3px solid ${theme.buttonNumber.border}`,
+      width: '20%',
+    };
+  };
 
-### `npm run build`
+  if (value === 'DEL') {
+    return (
+      <Button onClick={() => deleteValue()} style={pickThemeColorButton(value)}>
+        {value}
+      </Button>
+    );
+  }
+  if (value === 'RESET') {
+    return (
+      <Button onClick={() => resetValue()} style={pickThemeColorButton(value)}>
+        {value}
+      </Button>
+    );
+  }
+  if (value === '=') {
+    return (
+      <Button onClick={() => resultValue()} style={pickThemeColorButton(value)}>
+        {value}
+      </Button>
+    );
+  }
+  if (['+', '-', 'x', '/'].includes(value)) {
+    return (
+      <Button onClick={() => operationForOperator(value)} style={pickThemeColorButton(value)}>
+        {value}
+      </Button>
+    );
+  }
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  return (
+    <Button onClick={() => handleInputChangeForButton(value)} style={pickThemeColorButton(value)}>
+      {value}
+    </Button>
+  );
+};
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+export default CalculatorButton;
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
