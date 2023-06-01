@@ -1,5 +1,4 @@
-let dotCount = 0;
-const utilsInputChangeForButton = (inputValue: string,value: string,setInputValue: React.Dispatch<React.SetStateAction<string>>)=>{
+const utilsInputChangeForButton = (inputValue: string,value: string,setInputValue: React.Dispatch<React.SetStateAction<string>>, dot:boolean, setDot: React.Dispatch<React.SetStateAction<boolean>>)=>{
     const allowedCharacters = ['DEL', 'RESET', '=', '+', '-', 'x', '/'];
 
     if (!allowedCharacters.includes(value)) {
@@ -12,13 +11,13 @@ const utilsInputChangeForButton = (inputValue: string,value: string,setInputValu
         }
       } else {
         for (let i = 0; i < inputValue.length; i++) {
-          if (inputValue[i] === '.') dotCount += 1;
+          if (inputValue[i] === '.') setDot(true)
         }
 
         if (value !== '.') {
           setInputValue((prev) => (prev += value));
         }
-        if (value === '.' && dotCount < 1) {
+        if (value === '.' && !dot) {
           setInputValue((prev) => (prev += value));
         }
       }

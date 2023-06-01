@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Header from './Header';
 import CalculatorButton from './CalculatorButton';
@@ -59,6 +59,16 @@ const LineButtons = styled.div`
 const Calculator = () => {
   const [inputValue, setInputValue] = useState<string>('0');
   const [lastValue, setLastValue] = useState<string>('');
+  const [dot, setDot] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!inputValue.includes('.')) {
+      setDot(false);
+    } else {
+      setDot(true);
+    }
+  }, [inputValue]);
+
   const lineButtons = [
     ['7', '8', '9', 'DEL'],
     ['4', '5', '6', '+'],
@@ -72,7 +82,7 @@ const Calculator = () => {
   };
 
   const handleInputChangeForButton = (value: string) => {
-    utilsInputChangeForButton(inputValue, value, setInputValue);
+    utilsInputChangeForButton(inputValue, value, setInputValue, dot, setDot);
   };
 
   const resultValue = () => {

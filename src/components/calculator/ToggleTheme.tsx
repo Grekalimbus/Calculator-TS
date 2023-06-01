@@ -35,6 +35,7 @@ const Toggletheme = () => {
   const handleToggle = () => {
     const incrementClick = clicks + 1;
     localStorage.setItem('toggleItem', String(incrementClick));
+    console.log((clicks % 3) * 110);
   };
 
   const newOffset = (clicks % 3) * 110;
